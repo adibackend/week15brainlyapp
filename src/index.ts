@@ -21,7 +21,7 @@ app.post('/api/v1/signup',(req,res)=>{
     UserModel.create({username,password})
     res.json({messeage:'user has signed up'})
 })
-app.post('/api/v1/sigin',validateUser,(req,res)=>{
+app.post('/api/v1/signin',validateUser,(req,res)=>{
   res.json({messeage : 'outside of post singin method'})
 
 })

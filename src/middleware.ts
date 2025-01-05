@@ -9,11 +9,11 @@ const userSchema = z.object({
 
 type User = z.infer<typeof userSchema>;
 
-const validateUser = (req: Request< User>, res: Response, next: NextFunction) => {
+const validateUser = (req: Request, res: Response, next: NextFunction) => {
   try {
 
     console.log('inside of validate user middleware')
-    req.body = userSchema.parse(req.body); 
+    userSchema.parse(req.body); 
     next();
   } catch (err) {
     res.status(400).json({ err });
