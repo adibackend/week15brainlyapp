@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import jwt from "jsonwebtoken"
 import { UserModel } from './db'
 import dotenv from 'dotenv'
+import validateUser from './middleware'
+
 dotenv.config()
 
 const app=express()
@@ -19,7 +21,8 @@ app.post('/api/v1/signup',(req,res)=>{
     UserModel.create({username,password})
     res.json({messeage:'user has signed up'})
 })
-app.post('/api/v1/sigin',(req,res)=>{
+app.post('/api/v1/sigin',validateUser,(req,res)=>{
+  res.json({messeage : 'outside of post singin method'})
 
 })
 app.post('/api/v1/content',(req,res)=>{
@@ -31,8 +34,6 @@ app.post('/api/v1/brain/share',(req,res)=>{
 app.post('/api/v1/brain/:sharelink',(req,res)=>{
 
 })
-
-
 
 
 app.listen(process.env.PORT,async()=>{
