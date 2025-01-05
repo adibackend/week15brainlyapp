@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import jwt from "jsonwebtoken"
 import { UserModel } from './db'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const app=express()
 app.use(express.json())
@@ -33,12 +35,11 @@ app.post('/api/v1/brain/:sharelink',(req,res)=>{
 
 
 
-app.listen(4000,async()=>{
+app.listen(process.env.PORT,async()=>{
 
   try {
-
-   await mongoose.connect('mongodb+srv://devi:mm@testdb.vvyj2.mongodb.net/?retryWrites=true&w=majority&appName=testdb')
-    console.log('APP LISTENING ON PORT 4000')
+   await mongoose.connect(`${process.env.DATABASE_URL}`)
+    console.log(`App is listenin on port ${process.env.PORT}`)
 
   } catch (error) {
     console.log('something is wrong')
