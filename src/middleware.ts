@@ -9,7 +9,7 @@ dotenv.config()
 declare global {
   namespace Express {
     interface Request {
-      userId?: string; 
+      userId?: string;
     }
   }
 }
@@ -26,12 +26,12 @@ export const contentSchema = z.object({
   title: z.string().nonempty(),
 });
 
-export const userSignInSchemaa=z.object({
-  username:z.string().nonempty(),
-  password : z.string().nonempty()
+export const userSignInSchemaa = z.object({
+  username: z.string().nonempty(),
+  password: z.string().nonempty()
 })
-export const IUserr=z.object({
-  username:z.string()
+export const IUserr = z.object({
+  username: z.string()
 })
 
 export const validate =
@@ -52,7 +52,7 @@ export const validate =
 
 
 export const jwtauth = (req: Request, res: Response, next: NextFunction) => {
-  const header = req.headers['authorization'];
+  const header = req.headers['authorization']?.split(' ')[1];
   const decoded = jwt.verify(header as string, process.env.JWT_PASSWORD as string)
   if (decoded) {
     if (typeof decoded === "string") {

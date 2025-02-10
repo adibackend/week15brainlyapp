@@ -9,10 +9,11 @@ import { LinkModel } from './db'
 import { random } from './utils'
 import { comparepassword, hashpassword } from './utils'
 import { contentSchema } from './middleware'
+import cors from "cors"
 dotenv.config()
-
 const app = express()
 app.use(express.json())
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.json({ messeage: "everything is correct" })
@@ -73,7 +74,7 @@ app.get("/api/v1/content", jwtauth, async (req, res) => {
   const content = await ContentModel.find({
     userId: userId
   }).populate("userId", "username")
-  
+  console.log(content)
   res.json({
     content
   })
@@ -172,6 +173,7 @@ app.get('/api/v1/brain/:sharelink', async (req, res) => {
 app.listen(process.env.PORT, async () => {
 
   try {
+    console.log(`${process.env.PORT}`)
     await mongoose.connect(`${process.env.DATABASE_URL}`)
     console.log(`App is listenin on port ${process.env.PORT}`)
 
